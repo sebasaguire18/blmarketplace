@@ -33,28 +33,29 @@
 							<div class="full-width div-table">
 								<div class="full-width div-table-row">
 									<div class="div-table-cell div-table-cell-xs" style="height: auto !important; line-height: inherit; border:none;">
-										<?php echo conteoPostFavPorUsuario($idUserSession,1); ?> <br>
-										<small>Favoritos</small>
+										<?php echo conteoProductosPorUsuario($idUserSession,1); ?> <br>
+										<small>En venta</small>
+									</div>
+									<div class="div-table-cell div-table-cell-xs" style="height: auto !important; line-height: inherit; border:none;">
+										<?php echo conteoProductosPorUsuario($idUserSession,2); ?> <br>
+										<small>Vendidos</small>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="full-width list-group" style="border-radius: 0;">
-							<div class="list-group-item text-center">
+							<!-- <div class="list-group-item text-center">
 								<small>Desde Junio 2016</small>
-							</div>
+							</div> -->
 						  	<a href="perfil.php" class="list-group-item">
 						  		<i class="fa fa-user fa-fw" aria-hidden="true"></i> TU PERFIL
 						  	</a>
-						  	<a href="config.php" class="list-group-item">
-						  		<i class="fa fa-cogs fa-fw" aria-hidden="true"></i> CONFIGURACIÓN
-						  	</a>
-						  	<a href="yourlistado.php" class="list-group-item">
-						  		<i class="fa fa-object-group fa-fw" aria-hidden="true"></i> TUS ANUNCIOS
-						  	</a>
-						  	<a href="favorites.php" class="list-group-item active">
-						  		<i class="fa fa-heart-o fa-fw" aria-hidden="true"></i> FAVORITOS
-						  	</a>
+                            <a href="yourlistado.php" class="list-group-item">
+                                <i class="fa fa-object-group fa-fw" aria-hidden="true"></i> TUS ANUNCIOS
+                            </a>
+                            <a href="favorites.php" class="list-group-item active">
+                                <i class="fa fa-heart-o fa-fw" aria-hidden="true"></i> FAVORITOS
+                            </a>
 						</div>
 					</div>
 				</div>

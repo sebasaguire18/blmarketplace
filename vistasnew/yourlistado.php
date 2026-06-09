@@ -57,9 +57,6 @@
                             <a href="favorites.php" class="list-group-item">
                                 <i class="fa fa-heart-o fa-fw" aria-hidden="true"></i> FAVORITOS
                             </a>
-						  	<a href="config.php" class="list-group-item">
-						  		<i class="fa fa-cogs fa-fw" aria-hidden="true"></i> CONFIGURACIÓN
-						  	</a>
 						</div>
 					</div>
 				</div>

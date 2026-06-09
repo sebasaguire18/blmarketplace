@@ -4,6 +4,9 @@
         $nombre=$_SESSION['emailBS'];
         $idUserSession = $_SESSION['idUserSessionBL'];
         include '../php/funciones.php';
+
+        
+        $usuario = consultarDatosUsuarioId($idUserSession);
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +78,7 @@
 						<div class="form-group">
 						    <label class="col-sm-3 control-label">Teléfono</label>
 						    <div class="col-sm-7">
-						    	<input type="number" class="form-control" placeholder="Teléfono" name="contacto" required>
+						    	<input type="number" class="form-control" placeholder="Teléfono" name="contacto" value="<?php echo $usuario['usu_celular']; ?>" required>
 						    </div>
 						</div>
 						<p class="text-center">

@@ -33,11 +33,11 @@
                     <i class="fa fa-heart-o fa-fw hidden-md hidden-lg" aria-hidden="true"></i> FAVORITOS
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="help.php">
                     <i class="fa fa-life-ring fa-fw hidden-md hidden-lg" aria-hidden="true"></i> AYUDA
                 </a>
-            </li>
+            </li> -->
             <li class="hidden-xs hidden-sm"><i class="fa fa-user NavBar-Nav-icon btn-PopUpLogin" aria-hidden="true"></i></li>
         </ul>
     </nav>

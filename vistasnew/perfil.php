@@ -1,3 +1,13 @@
+<?php
+    session_start();
+    if($_SESSION['emailBS']){
+        $nombre=$_SESSION['emailBS'];
+        $idUserSession = $_SESSION['idUserSessionBL'];
+        include '../php/funciones.php';
+
+        $usuario = consultarDatosUsuarioId($idUserSession);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head> 
@@ -7,7 +17,7 @@
 </head>
 <body>
 	
-	<?php include('../includes/nav.php'); ?>
+	<?php include('../includes/navnew.php'); ?>
 
 	<!-- ====== Contenido de pagina ======-->
 	<section class="full-width section">
@@ -20,40 +30,34 @@
 					<div class="full-width user-menu-xs">
 						<div class="full-width post-user-info" style="margin: 0 !important;">
 							<!--<i class="fa fa-user NavBar-Nav-icon" aria-hidden="true"></i>-->
-							<img src="assets/img/user.png" class="NavBar-Nav-icon" alt="User">
-							<p class="full-width"><small>Nombre de usuario</small></p>
+							<img src="../assets/img/user.png" class="NavBar-Nav-icon" alt="User">
+							<p class="full-width"><small><?php echo consultarNombreUsuarioId($idUserSession); ?></small></p>
 							<div class="full-width div-table">
 								<div class="full-width div-table-row">
 									<div class="div-table-cell div-table-cell-xs" style="height: auto !important; line-height: inherit; border:none;">
-										0 <br>
+										<?php echo conteoProductosPorUsuario($idUserSession,1); ?> <br>
 										<small>En venta</small>
 									</div>
 									<div class="div-table-cell div-table-cell-xs" style="height: auto !important; line-height: inherit; border:none;">
-										0 <br>
+										<?php echo conteoProductosPorUsuario($idUserSession,2); ?> <br>
 										<small>Vendidos</small>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="full-width list-group" style="border-radius: 0;">
-							<div class="list-group-item text-center">
+							<!-- <div class="list-group-item text-center">
 								<small>Desde Junio 2016</small>
-							</div>
-						  	<a href="perfil.html" class="list-group-item active">
+							</div> -->
+						  	<a href="perfil.php" class="list-group-item">
 						  		<i class="fa fa-user fa-fw" aria-hidden="true"></i> TU PERFIL
 						  	</a>
-						  	<a href="config.html" class="list-group-item">
-						  		<i class="fa fa-cogs fa-fw" aria-hidden="true"></i> CONFIGURACIÓN
-						  	</a>
-						  	<a href="yourlistado.php" class="list-group-item">
-						  		<i class="fa fa-object-group fa-fw" aria-hidden="true"></i> TUS ANUNCIOS
-						  	</a>
-						  	<a href="messages.html" class="list-group-item">
-						  		<i class="fa fa-commenting-o fa-fw" aria-hidden="true"></i> MENSAJES
-						  	</a>
-						  	<a href="favorites.html" class="list-group-item">
-						  		<i class="fa fa-heart-o fa-fw" aria-hidden="true"></i> FAVORITOS
-						  	</a>
+                            <a href="yourlistado.php" class="list-group-item">
+                                <i class="fa fa-object-group fa-fw" aria-hidden="true"></i> TUS ANUNCIOS
+                            </a>
+                            <a href="favorites.php" class="list-group-item active">
+                                <i class="fa fa-heart-o fa-fw" aria-hidden="true"></i> FAVORITOS
+                            </a>
 						</div>
 					</div>
 				</div>
@@ -64,7 +68,7 @@
 					</div>
 					<!-- Contenido-->
 					<div class="full-width" style="padding: 15px; border: 1px solid #E1E1E1;">
-						<form action="">
+						<form action="../php/controlador.php" method="POST">
 							<p class="text-muted text-center">Seleciona una image</p>
 							<div class="form-group">
 							    <div class="custom-input-file">
@@ -77,27 +81,26 @@
 							<br><br><br>
 							<div class="form-group">
 								<label>Nombre</label>
-								<input type="text" placeholder="Nombre" class="form-control">
+								<input type="text" placeholder="Nombre" class="form-control" value="<?php echo $usuario['usu_nombre']; ?>">
 							</div>
 							<div class="form-group">
 								<label>Teléfono <small>Éste será el teléfono de contacto en tus anuncios</small></label>
-								<input type="text" placeholder="¿Cuál es tu teléfono?" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Localización <small>¿Cuál es tu ubicación?</small></label>
-								<input type="email" placeholder="Email" class="form-control">
+								<input type="text" placeholder="¿Cuál es tu teléfono?" class="form-control" value="<?php echo $usuario['usu_celular']; ?>">
 							</div>
 							<div class="form-group">
 								<label>Email</label>
-								<input type="email" placeholder="Email" class="form-control">
+								<input type="email" placeholder="Email" class="form-control" value="<?php echo $usuario['usu_correo']; ?>">
 							</div>
-							<div class="form-group">
+							<!-- input del id del usuario -->
+                            <input type="hidden" name="idUser" value="<?php echo $usuario['usu_id']; ?>">
+							
+                            <div class="form-group">
 								<label>Contraseña</label>
 								<a href="#!" class="btn btn-default btn-xs pull-right btn-dropdown-conatiner" data-drop-cont=".perfil-password">
 									Mostrar/Ocultar <i class="fa fa-sort" aria-hidden="true"></i>
 								</a>
 								<div class="full-width perfil-password">
-									<input type="password" placeholder="Contraseña" class="form-control">
+									<input type="password" placeholder="Contraseña" class="form-control" value="<?php echo $usuario['usu_contrasena']; ?>">
 									<br>
 									<input type="password" placeholder="Nueva Contraseña" class="form-control">
 									<br>
@@ -105,7 +108,7 @@
 								</div>
 							</div>
 							<p class="text-center">
-								<button class="btn btn-danger">GUARDAR</button>
+								<button class="btn btn-danger" name="btn_actualizarperfil" type="submit">GUARDAR</button>
 							</p>
 						</form>
 					</div>
@@ -120,5 +123,14 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="../js/jquery-1.11.2.min.js"><\/script>')</script>
 	<?php include('../includes/script.php'); ?>
+
 </body>
+
 </html>
+
+
+<?php
+	}else{
+        header("location: ../vistas/index.php");
+    }
+?>

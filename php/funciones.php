@@ -790,6 +790,17 @@
         
     }
 
+    // consultar datos del usuario según el ID proporcionado al llamar la función
+    
+    function consultarDatosUsuarioId($idUserSession){
+
+        include 'conexion-bd.php';
+        
+        $consultaUsuario = mysqli_query($conexion,"SELECT usu_id,usu_nombre,usu_correo,usu_celular,usu_contrasena,usu_rol,usu_fecha_creacion,usu_estado FROM usuarios WHERE usu_id = '$idUserSession'");
+
+        return $usuario = mysqli_fetch_array($consultaUsuario);
+    }
+
     // consultar datos del detalle del producto dependiendo del id
 
     function consultarDetalleProducto($id){

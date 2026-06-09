@@ -524,7 +524,7 @@
 
 //-----------EDITAR DATOS USUARIO-----------//
 
-    if (isset($_POST['btn_editdatosNombre'])) {
+    if (isset($_POST['btn_actualizarperfil'])) {
 
         $nombre=$_POST['nombre'];
         $idUser=$_POST['idUser'];

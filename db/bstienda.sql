@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-05-2026 a las 02:58:03
+-- Tiempo de generación: 09-06-2026 a las 05:15:19
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -60,8 +60,11 @@ CREATE TABLE `favoritos` (
 --
 
 INSERT INTO `favoritos` (`fav_id`, `fav_id_post`, `fav_id_usuario`, `fav_fecha`) VALUES
-('6a0d14075b42d', '6a07f9f28169f', '62223a6e31e99', '2026-05-19 20:53:11'),
-('6a0d253468d2b', '6a07f9073768b', '62223a6e31e99', '2026-05-19 22:06:28');
+('6a0e6f5744f2f', '621bcf3d8f35a', '62223a6e31e99', '2026-05-20 21:35:03'),
+('6a0e7db9b065d', '6a03efe7dce55', '62223a6e31e99', '2026-05-20 22:36:25'),
+('6a0e7e9c8d8c3', '6a03fb4a6d1f4', '62223a6e31e99', '2026-05-20 22:40:12'),
+('6a0e7f29b43ee', '6a07f9f28169f', '62223a6e31e99', '2026-05-20 22:42:33'),
+('6a0e8044cfcd9', '6a0bde0962237', '62223a6e31e99', '2026-05-20 22:47:16');
 
 -- --------------------------------------------------------
 
@@ -91,7 +94,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `post_titulo`, `post_descripcion`, `post_precio`, `post_contacto`, `post_categoria`, `post_ciudad`, `post_ruta_imagen`, `post_ruta_imagen2`, `post_ruta_imagen3`, `post_id_usuario`, `post_vistas`, `post_fecha`, `post_estado`) VALUES
-('621bcf3d8f35a', 'diadema auricular', 'jsjsjfdkjflks dsfj sdklf jsdlkds fjsdkl fjsdkf  fsd d fsd fsd lfsldflksdjf sdo fjsdf ', 150000, 2147483647, '64645990cb3d2', 'Armenia Q', '../assets/post/69fe9657294e4-6261fed667f3f-product02.png', NULL, NULL, '62223a6e31e99', 11, '2026-05-08 21:05:11', 1),
+('621bcf3d8f35a', 'diadema auricular', 'jsjsjfdkjflks dsfj sdklf jsdlkds fjsdkl fjsdkf  fsd d fsd fsd lfsldflksdjf sdo fjsdf ', 150000, 2147483647, '64645990cb3d2', 'Armenia Q', '../assets/post/69fe9657294e4-6261fed667f3f-product02.png', NULL, NULL, '62223a6e31e99', 12, '2026-05-08 21:05:11', 1),
 ('6a03efe7dce55', 'teclado flexible', 'teclado ergonomico, flexible portatil. para llevarlo a cualquier lugar', 35000, 2147483647, '64645990cb3d2', 'Armenia Q', '../assets/post/6a03efe7dc403-6263a7b66a7f6-tecladoFlexible.png', NULL, NULL, '62223a6e31e99', 7, '2026-05-12 22:28:39', 1),
 ('6a03fb4a6d1f4', 'Computador lenovo series xpro max super sayayin xtz', 'este es un computador ultima generacion xpro max dr xtz con procesador intel igente gatuberante flelixiano 3000', 3500000, 2147483647, '64645990cb3d2', 'Armenia Q', '../assets/post/6a03fb4a6c802-621bcf3d8f35a-product03.png', NULL, NULL, '62223a6e31e99', 4, '2026-05-12 23:17:14', 1),
 ('6a07f7a522c9d', 'Ipons i12', 'nuevos audifonos', 45000, 2147483647, '64645990cb3d2', 'Pereira R', '../assets/post/6a07f7a521594-62702a8678a97-ipons12.png', NULL, NULL, '62223a6e31e99', 5, '2026-05-15 23:50:45', 1),
@@ -130,6 +133,7 @@ CREATE TABLE `usuarios` (
   `usu_id` varchar(50) NOT NULL COMMENT 'id unico creado internamente',
   `usu_nombre` varchar(255) NOT NULL COMMENT 'nombre del usuario',
   `usu_correo` varchar(255) NOT NULL COMMENT 'correo del usuario para iniciar sesion',
+  `usu_celular` varchar(255) NOT NULL COMMENT 'celular de los anuncios',
   `usu_contrasena` varchar(255) NOT NULL COMMENT 'contrseña del correo  encriptada para iniciar sesion',
   `usu_rol` varchar(255) NOT NULL COMMENT 'id del rol',
   `usu_fecha_creacion` datetime NOT NULL DEFAULT current_timestamp() COMMENT 'fecha de creacion del registro',
@@ -140,8 +144,8 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`usu_id`, `usu_nombre`, `usu_correo`, `usu_contrasena`, `usu_rol`, `usu_fecha_creacion`, `usu_estado`) VALUES
-('62223a6e31e99', 'Sebastian Aguirre', 'admin@mail.com', '202cb962ac59075b964b07152d234b70', '64645990cb1d4', '2026-04-29 22:50:58', 1);
+INSERT INTO `usuarios` (`usu_id`, `usu_nombre`, `usu_correo`, `usu_celular`, `usu_contrasena`, `usu_rol`, `usu_fecha_creacion`, `usu_estado`) VALUES
+('62223a6e31e99', 'Sebastian Aguirre', 'admin@mail.com', '3233858522', '202cb962ac59075b964b07152d234b70', '64645990cb1d4', '2026-04-29 22:50:58', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
