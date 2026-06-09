@@ -43,16 +43,16 @@
 							<div class="list-group-item text-center">
 								<small>Desde Junio 2016</small>
 							</div>
-						  	<a href="perfil.html" class="list-group-item">
+						  	<a href="perfil.php" class="list-group-item">
 						  		<i class="fa fa-user fa-fw" aria-hidden="true"></i> TU PERFIL
 						  	</a>
-						  	<a href="config.html" class="list-group-item">
+						  	<a href="config.php" class="list-group-item">
 						  		<i class="fa fa-cogs fa-fw" aria-hidden="true"></i> CONFIGURACIÓN
 						  	</a>
 						  	<a href="yourlistado.php" class="list-group-item">
 						  		<i class="fa fa-object-group fa-fw" aria-hidden="true"></i> TUS ANUNCIOS
 						  	</a>
-						  	<a href="favorites.html" class="list-group-item active">
+						  	<a href="favorites.php" class="list-group-item active">
 						  		<i class="fa fa-heart-o fa-fw" aria-hidden="true"></i> FAVORITOS
 						  	</a>
 						</div>
