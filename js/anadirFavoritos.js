@@ -1,8 +1,6 @@
 async function toggleFavorito(button) {
     const productoId = button.dataset.producto;
-    const popup = document.getElementById('popupFav');
-    const alertPopup = document.getElementById('alertPopup');
-    const popupText = document.getElementById('popupText');
+    // Use SweetAlert2 toast (bottom-right) for feedback
 
     try {
         const response = await fetch('../php/favorito-toggle.php',{
@@ -17,27 +15,35 @@ async function toggleFavorito(button) {
             if (data.estado === 'agregado') {
                 button.classList.remove('fa-heart-o');
                 button.classList.add('fa-heart');
+                // add heart animation
+                button.classList.add('heart-anim');
+                setTimeout(() => button.classList.remove('heart-anim'), 350);
 
-                popup.classList.add('activo');
-                alertPopup.classList.add('alert-success');
-                popupText.textContent = 'Añadido a Favoritos';
-                
-                setTimeout(() => {
-                    popup.classList.remove('activo');
-                    alertPopup.classList.remove('alert-success');
-                }, 2000);
+                Swal.fire({
+                    position: 'bottom-end',
+                    icon: 'success',
+                    title: 'Añadido a Favoritos',
+                    toast: true,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
             } else {
                 button.classList.remove('fa-heart');
                 button.classList.add('fa-heart-o');
+                // add heart animation
+                button.classList.add('heart-anim');
+                setTimeout(() => button.classList.remove('heart-anim'), 350);
 
-                popup.classList.add('activo');
-                alertPopup.classList.add('alert-danger');
-                popupText.textContent = 'Eliminado de Favoritos';
-                
-                setTimeout(() => {
-                    popup.classList.remove('activo');
-                    alertPopup.classList.remove('alert-danger');
-                }, 2000);
+                Swal.fire({
+                    position: 'bottom-end',
+                    icon: 'info',
+                    title: 'Eliminado de Favoritos',
+                    toast: true,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
             }
         }
     } catch (error) {

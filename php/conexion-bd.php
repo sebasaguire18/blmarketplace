@@ -1,2 +1,2 @@
-<?php //$conexion=mysqli_connect("localhost","root","","bstienda") or die("Problemas con la conexion");    ?>
-<?php $conexion=mysqli_connect("localhost","u801406368_bstienda","Sebas23124762","u801406368_bstienda") or die("Problemas con la conexion"); ?>
+<?php $conexion=mysqli_connect("localhost","root","","bstienda") or die("Problemas con la conexion");    ?>
+<?php //$conexion=mysqli_connect("localhost","u801406368_bstienda","Sebas23124762","u801406368_bstienda") or die("Problemas con la conexion"); ?>

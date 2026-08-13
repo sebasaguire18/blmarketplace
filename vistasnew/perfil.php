@@ -49,13 +49,13 @@
 							<!-- <div class="list-group-item text-center">
 								<small>Desde Junio 2016</small>
 							</div> -->
-						  	<a href="perfil.php" class="list-group-item">
+						  	<a href="perfil.php" class="list-group-item active">
 						  		<i class="fa fa-user fa-fw" aria-hidden="true"></i> TU PERFIL
 						  	</a>
                             <a href="yourlistado.php" class="list-group-item">
                                 <i class="fa fa-object-group fa-fw" aria-hidden="true"></i> TUS ANUNCIOS
                             </a>
-                            <a href="favorites.php" class="list-group-item active">
+                            <a href="favorites.php" class="list-group-item">
                                 <i class="fa fa-heart-o fa-fw" aria-hidden="true"></i> FAVORITOS
                             </a>
 						</div>
@@ -81,15 +81,15 @@
 							<br><br><br>
 							<div class="form-group">
 								<label>Nombre</label>
-								<input type="text" placeholder="Nombre" class="form-control" value="<?php echo $usuario['usu_nombre']; ?>">
+								<input type="text" name="nombre" placeholder="Nombre" class="form-control" value="<?php echo $usuario['usu_nombre']; ?>">
 							</div>
 							<div class="form-group">
 								<label>Teléfono <small>Éste será el teléfono de contacto en tus anuncios</small></label>
-								<input type="text" placeholder="¿Cuál es tu teléfono?" class="form-control" value="<?php echo $usuario['usu_celular']; ?>">
+								<input type="text" name="celular" placeholder="¿Cuál es tu teléfono?" class="form-control" value="<?php echo $usuario['usu_celular']; ?>">
 							</div>
 							<div class="form-group">
 								<label>Email</label>
-								<input type="email" placeholder="Email" class="form-control" value="<?php echo $usuario['usu_correo']; ?>">
+								<input type="email" name="correo" placeholder="Email" class="form-control" value="<?php echo $usuario['usu_correo']; ?>">
 							</div>
 							<!-- input del id del usuario -->
                             <input type="hidden" name="idUser" value="<?php echo $usuario['usu_id']; ?>">
@@ -100,11 +100,11 @@
 									Mostrar/Ocultar <i class="fa fa-sort" aria-hidden="true"></i>
 								</a>
 								<div class="full-width perfil-password">
-									<input type="password" placeholder="Contraseña" class="form-control" value="<?php echo $usuario['usu_contrasena']; ?>">
+									<input type="password" name="contrasenaAnterior" placeholder="Contraseña" class="form-control" value="<?php echo $usuario['usu_contrasena']; ?>">
 									<br>
-									<input type="password" placeholder="Nueva Contraseña" class="form-control">
+									<input type="password" name="contrasenaNueva" placeholder="Nueva Contraseña" class="form-control">
 									<br>
-									<input type="password" placeholder="Confirmar Contraseña" class="form-control">
+									<input type="password" name="contrasenaNueva1" placeholder="Confirmar Contraseña" class="form-control">
 								</div>
 							</div>
 							<p class="text-center">

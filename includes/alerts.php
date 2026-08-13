@@ -47,6 +47,17 @@
                 <a class="btn btn-primary mt-3" href="javascript:history.go(-1);">
                     Reintentar
                 </a>
+            <?php }elseif ($paramAlert === 'userexist') { ?>
+                <div class="alert alert-warning" role="alert">
+                    <h4 class="alert-heading bold">¡Usuario existente!</h4>
+                    <p>El correo proporcionado ya está registrado en el sistema.</p>
+                    <hr>
+                    <p class="mb-0">Si ya tienes una cuenta, inicia sesión o utiliza la opción de recuperar contraseña.</p>
+                </div>
+
+                <a class="btn btn-warning mt-3" href="../vistas/login.php">
+                    Iniciar sesión
+                </a>
             <?php } ?>
 
         </div>

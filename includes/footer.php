@@ -37,9 +37,9 @@
         <div class="col-xs-12">
             <ul class="list-unstyled text-center full-width footer-copyright">
                 <li>&copy; 2026 Compañia</li>
-                <li><a href="#!">Condiciones de uso</a></li>
-                <li><a href="#!">Ayuda</a></li>
-                <li><a href="#!">Políticas de uso</a></li>
+                <li><a href="./conditions.php">Condiciones de uso</a></li>
+                <li><a href="./help.php">Ayuda</a></li>
+                <li><a href="./policies.php">Políticas de uso</a></li>
                 <li><a href="#!">Apps</a></li>
             </ul>
         </div>

@@ -27,6 +27,27 @@
         transform: translateY(0);
         opacity: 1;
     }
+
+    /* Animaciones y estilo para post marcado como vendido */
+    .post.sold{
+        background: rgba(255,0,0,0.06) !important;
+    }
+
+    .post.sold-anim{
+        transition: background-color .45s ease, transform .12s ease, box-shadow .2s ease;
+        transform: translateY(-4px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    /* Heart icon animation */
+    .post-info-like {
+        transition: transform .18s ease, color .18s ease;
+    }
+
+    .heart-anim {
+        transform: scale(1.25) rotate(-10deg);
+        transition: transform .22s cubic-bezier(.2,.9,.3,1);
+    }
 </style>
 
 <div class="card p-1 px-3 text-center card-popup" id="popupFav">

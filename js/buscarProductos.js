@@ -6,11 +6,11 @@ $(function () {
     });
 });
 
-$(buscar_datos());
+// $(buscar_datos());
 
 function buscar_datos(consulta="") {
     $.ajax({
-        url: '../php/controlador.php',
+        url: '../php/funciones.php',
         type: 'POST',
         dataType: 'html',
         data: { buscar_producto: consulta },
@@ -20,7 +20,7 @@ function buscar_datos(consulta="") {
         $('#resultadosBusqueda').html(respuesta);
     })
     .fail(function() {
-        // console.log('error');
+        console.log('error');
     });
 }
 

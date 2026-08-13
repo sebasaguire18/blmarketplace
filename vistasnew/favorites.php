@@ -62,7 +62,7 @@
 				<div class="col-xs-12 col-sm-8 col-md-9">
 					<div class="full-width bar-info-user">
 						<i class="fa fa-heart-o fa-fw" aria-hidden="true"></i>
-						<div>FAVORITOS</div>
+						<div>FAVORITOS (<?php echo conteoPostFavPorUsuario($idUserSession); ?>)</div>
 					</div>
 					<!-- Contenido-->
 					<div class="full-widht">

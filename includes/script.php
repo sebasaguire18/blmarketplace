@@ -24,6 +24,8 @@
 
 <!-- Sweet Alert 2 -->
 <!-- <script src="extensions/sweetalert2/sweetalert2.all.min.js"></script> -->
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Para el buscador de productos -->
 <script src="../js/buscarProductos.js"></script>
@@ -33,6 +35,16 @@
 
 <!-- función para añadir a favoritos -->
 <script src="../js/anadirFavoritos.js"></script>
+
+<!-- función para marcar post como vendido/disponible -->
+<script src="../js/toggleVendido.js"></script>
+
+<!-- Global handler para capturar promesas rechazadas y ayudar a depurar -->
+<script>
+window.addEventListener('unhandledrejection', function(event) {
+	console.error('Unhandled promise rejection detected:', event.reason);
+});
+</script>
 
 <!-- data tables -->
 <!-- <script type="text/javascript" src="extensions/datatables/JSZip-2.5.0/jszip.min.js"></script>

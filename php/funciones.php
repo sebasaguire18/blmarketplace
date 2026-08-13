@@ -63,8 +63,12 @@
         
         include 'conexion-bd.php';
 
-        $consultaProductosPorUsuario = mysqli_query($conexion," SELECT * FROM posts WHERE post_id_usuario = '$idUsuario' AND post_estado = $estado GROUP BY post_id ");
-        
+        if ($estado == 3) {
+            $consultaProductosPorUsuario = mysqli_query($conexion," SELECT * FROM posts WHERE post_id_usuario = '$idUsuario' GROUP BY post_id ");
+        } else {
+            $consultaProductosPorUsuario = mysqli_query($conexion," SELECT * FROM posts WHERE post_id_usuario = '$idUsuario' AND post_estado = $estado GROUP BY post_id ");
+        }
+
         $fila = mysqli_num_rows($consultaProductosPorUsuario);
         return $fila;
     }
@@ -664,6 +668,7 @@
             }elseif ($post['post_estado'] == 0) {
                 $estadoProd = '<span class="icon-cross"></span>';
             }
+            // sold state (2) handled visually below
 
             $categoria = consultarNombreCat($post['post_categoria']);
             $resultadoExisFavo = consultarExistenciaProdFavo($post['post_id'],$idUserSession);
@@ -727,17 +732,23 @@
                 $classFav = 'fa-heart-o';
             }
         ?>
-            <div class="col-11 col-sm-6 col-md-4 col-lg-3 post">
+            <?php $isSold = ($post['post_estado'] == 2); ?>
+            <div class="col-11 col-sm-6 col-md-4 col-lg-3 post" <?php if($isSold){ echo 'style="background: rgba(255,0,0,0.06);"'; } ?> >
                 <figure class="full-width post-img">
                     <!-- Tamaño de la imagen 248x186 pixeles-->
                     <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
                 </figure>
                 <div class="full-width post-info">
+                    <?php if($isSold){ ?>
+                        <div style="position:absolute;right:10px;top:10px;background:rgba(255,0,0,0.12);color:#900;padding:4px 8px;border-radius:3px;font-weight:700;">VENDIDO</div>
+                    <?php } ?>
                     <a href="post.php?id_post=<?php echo $post['post_id'];?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
                     <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
                     <span class="post-info-zone"><?php echo $categoria; ?></span>
                     <span class="post-info-date"><?php echo $fecha ?></span>
                     <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
+                    <?php if ($isSold) { $vendClass='fa-check'; $vendTitle='Marcar como disponible'; } else { $vendClass='fa-tag'; $vendTitle='Marcar como vendido'; } ?>
+                    <i class="fa <?php echo $vendClass; ?> post-info-like btn-vendido" data-post="<?php echo $post['post_id']; ?>" style="margin-left:8px;cursor:pointer;" title="<?php echo $vendTitle; ?>" onclick="toggleVendido(this)"></i>
                 </div>
             </div>
         <?php
@@ -2066,69 +2077,146 @@
     
     // Funcion para buscar producto segun palabra
 
-    function buscarProducto($palabra) {
-        
-        $idUserSession = $_SESSION['idUserSessionBL'];
-
+    function buscarProducto($palabra,$sesion=false) {
         include 'conexion-bd.php';
 
-        $palabra = mysqli_real_escape_string($conexion,$palabra);
+        if ($sesion) {
+            $idUserSession = $_SESSION['idUserSessionBL'];
 
-        if ($palabra) {
-            $consultaPost= mysqli_query($conexion,"SELECT * FROM posts WHERE post_estado = 1 AND post_titulo LIKE '%$palabra%' OR post_descripcion LIKE '%$palabra%' OR post_categoria LIKE '%$palabra%' OR post_id LIKE '%$palabra%' ORDER BY post_fecha DESC ");
-            $conteo_resultados = mysqli_num_rows($consultaPost);
-            if($conteo_resultados  == 0){ ?>
-                <div class="alert alert-danger text-center" role="alert">
-                    <h4 class="alert-heading bold">¡Sin resultados!</h4>
-                    <p>No se encontró resultados para tu busqueda "<?php echo $palabra; ?>".</p>
-                </div>
-            <?php }
-        }else {
-            $consultaPost= mysqli_query($conexion,"SELECT * FROM posts WHERE post_estado = 1 ORDER BY post_fecha DESC");
-        }
-        
-        
-        while ($post = mysqli_fetch_array($consultaPost)) {
-            if (strlen ( $post['post_titulo'])>23) {
-                $tituloPost = substr($post['post_titulo'],0,14).'...';
+
+            $palabra = mysqli_real_escape_string($conexion,$palabra);
+
+            if ($palabra) {
+                $consultaPost= mysqli_query($conexion,"SELECT * FROM posts WHERE post_estado = 1 AND post_titulo LIKE '%$palabra%' OR post_descripcion LIKE '%$palabra%' OR post_categoria LIKE '%$palabra%' OR post_id LIKE '%$palabra%' ORDER BY post_fecha DESC ");
+                $conteo_resultados = mysqli_num_rows($consultaPost);
+                if($conteo_resultados  == 0){ ?>
+                    <div class="alert alert-danger text-center" role="alert">
+                        <h4 class="alert-heading bold">¡Sin resultados!</h4>
+                        <p>No se encontró resultados para tu busqueda "<?php echo $palabra; ?>".</p>
+                    </div>
+                <?php }
             }else {
-                $tituloPost = $post['post_titulo'];
+                $consultaPost= mysqli_query($conexion,"SELECT * FROM posts WHERE post_estado = 1 ORDER BY post_fecha DESC");
             }
             
-            $precioCF = formatoAPrecio($post['post_precio']);
-            $fecha = formatoAFecha($post['post_fecha'],1,1,1);
+            
+            while ($post = mysqli_fetch_array($consultaPost)) {
+                if (strlen ( $post['post_titulo'])>23) {
+                    $tituloPost = substr($post['post_titulo'],0,14).'...';
+                }else {
+                    $tituloPost = $post['post_titulo'];
+                }
+                
+                $precioCF = formatoAPrecio($post['post_precio']);
+                $fecha = formatoAFecha($post['post_fecha'],1,1,1);
 
-            if ($post['post_estado'] == 1) {
-                $estadoProd = '<span class="icon-checkmark"></span>';
-            }elseif ($post['post_estado'] == 0) {
-                $estadoProd = '<span class="icon-cross"></span>';
-            }
+                if ($post['post_estado'] == 1) {
+                    $estadoProd = '<span class="icon-checkmark"></span>';
+                }elseif ($post['post_estado'] == 0) {
+                    $estadoProd = '<span class="icon-cross"></span>';
+                }
 
-            $categoria = consultarNombreCat($post['post_categoria']);
-            $resultadoExisFavo = consultarExistenciaProdFavo($post['post_id'],$idUserSession);
+                $categoria = consultarNombreCat($post['post_categoria']);
+                $resultadoExisFavo = consultarExistenciaProdFavo($post['post_id'],$idUserSession);
 
-            if ($resultadoExisFavo == 'true') {
-                $classFav = 'fa-heart';
-            }else{
-                $classFav = 'fa-heart-o';
-            }
-        ?>
-            <div class="col-11 col-sm-6 col-md-4 col-lg-3 post">
-                <figure class="full-width post-img">
-                    <!-- Tamaño de la imagen 248x186 pixeles-->
-                    <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
-                </figure>
-                <div class="full-width post-info">
-                    <a href="post.php?id_post=<?php echo $post['post_id']; ?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
-                    <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
-                    <span class="post-info-zone"><?php echo $categoria; ?></span>
-                    <span class="post-info-date"><?php echo $fecha; ?></span>
-                    <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
+                if ($resultadoExisFavo == 'true') {
+                    $classFav = 'fa-heart';
+                }else{
+                    $classFav = 'fa-heart-o';
+                }
+            ?>
+                <?php $isSold = ($post['post_estado'] == 2); ?>
+                <div class="col-11 col-sm-6 col-md-4 col-lg-3 post" <?php if($isSold){ echo 'style="background: rgba(255,0,0,0.06);"'; } ?> >
+                    <figure class="full-width post-img">
+                        <!-- Tamaño de la imagen 248x186 pixeles-->
+                        <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
+                    </figure>
+                    <div class="full-width post-info">
+                        <?php if($isSold){ ?>
+                            <div style="position:absolute;right:10px;top:10px;background:rgba(255,0,0,0.12);color:#900;padding:4px 8px;border-radius:3px;font-weight:700;">VENDIDO</div>
+                        <?php } ?>
+                        <a href="post.php?id_post=<?php echo $post['post_id']; ?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
+                        <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
+                        <span class="post-info-zone"><?php echo $categoria; ?></span>
+                        <span class="post-info-date"><?php echo $fecha; ?></span>
+                        <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
+                    </div>
                 </div>
-            </div>
-        <?php
+            <?php
+            }
+        }else{
+            $palabra = mysqli_real_escape_string($conexion,$palabra);
+
+            if ($palabra) {
+                $consultaPost= mysqli_query($conexion,"SELECT * FROM posts WHERE post_estado = 1 AND post_titulo LIKE '%$palabra%' OR post_descripcion LIKE '%$palabra%' OR post_categoria LIKE '%$palabra%' OR post_id LIKE '%$palabra%' ORDER BY post_fecha DESC ");
+                $conteo_resultados = mysqli_num_rows($consultaPost);
+                if($conteo_resultados  == 0){ ?>
+                    <div class="alert alert-danger text-center" role="alert">
+                        <h4 class="alert-heading bold">¡Sin resultados!</h4>
+                        <p>No se encontró resultados para tu busqueda "<?php echo $palabra; ?>".</p>
+                    </div>
+                <?php }
+            }else {
+                $consultaPost= mysqli_query($conexion,"SELECT * FROM posts WHERE post_estado = 1 ORDER BY post_fecha DESC");
+            }
+            
+            
+            while ($post = mysqli_fetch_array($consultaPost)) {
+                if (strlen ( $post['post_titulo'])>23) {
+                    $tituloPost = substr($post['post_titulo'],0,14).'...';
+                }else {
+                    $tituloPost = $post['post_titulo'];
+                }
+                
+                $precioCF = formatoAPrecio($post['post_precio']);
+                $fecha = formatoAFecha($post['post_fecha'],1,1,1);
+
+                if ($post['post_estado'] == 1) {
+                    $estadoProd = '<span class="icon-checkmark"></span>';
+                }elseif ($post['post_estado'] == 0) {
+                    $estadoProd = '<span class="icon-cross"></span>';
+                }
+
+                $categoria = consultarNombreCat($post['post_categoria']);
+
+            ?>
+                <?php $isSold = ($post['post_estado'] == 2); ?>
+                <div class="col-11 col-sm-6 col-md-4 col-lg-3 post" <?php if($isSold){ echo 'style="background: rgba(255,0,0,0.06);"'; } ?> >
+                    <figure class="full-width post-img">
+                        <!-- Tamaño de la imagen 248x186 pixeles-->
+                        <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
+                    </figure>
+                    <div class="full-width post-info">
+                        <?php if($isSold){ ?>
+                            <div style="position:absolute;right:10px;top:10px;background:rgba(255,0,0,0.12);color:#900;padding:4px 8px;border-radius:3px;font-weight:700;">VENDIDO</div>
+                        <?php } ?>
+                        <a href="post.php?id_post=<?php echo $post['post_id']; ?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
+                        <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
+                        <span class="post-info-zone"><?php echo $categoria; ?></span>
+                        <span class="post-info-date"><?php echo $fecha; ?></span>
+                        <i class="fa fa-heart-o post-info-like btn-favorito" onclick=""></i>
+                    </div>
+                </div>
+            <?php
+            }
         }
+        
     }
+
+
+    //----------BUSQUEDA DE PRODUCTOS-----------//
+
+    if (isset($_POST['buscar_producto'])) {
+        session_start();
+        $buscarProducto = $_POST['buscar_producto'];
+
+        $sesion_flag = (isset($_SESSION['idUserSessionBL']) && $_SESSION['idUserSessionBL']);
+
+        // llamar a la función pasando el flag de sesión para que renderice los favoritos correctamente
+        buscarProducto($buscarProducto, $sesion_flag);
+    }
+
+    //----------FIN BUSQUEDA DE PRODUCTOS-----------//
 
     // Consultar existencia de post, segun ID y regresa true o false
 

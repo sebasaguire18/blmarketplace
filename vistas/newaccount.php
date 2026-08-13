@@ -27,18 +27,21 @@
 						<i class="fa fa-user container-login-icon" aria-hidden="true"></i>
 						<h4 class="text-center text-light">CREA UNA CUENTA</h4>
 						<br>
-						<form action=""">
+						<form action="../php/controlador.php" method="POST" id="formNewAccount">
 							<div class="form-group">
-								<input type="text" class="form-control input-lg" placeholder="Nombre" required="">
+								<input type="text" name="usu_nombre" class="form-control input-lg" placeholder="Nombre" required>
 							</div>
 							<div class="form-group">
-								<input type="email" class="form-control input-lg" placeholder="Email" required="">
+								<input type="email" name="usu_correo" class="form-control input-lg" placeholder="Email" required>
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control input-lg" placeholder="Contraseña" required="">
+								<input type="text" name="usu_celular" pattern="\d+" title="Sólo números sin espacios" class="form-control input-lg" placeholder="Celular" required>
+							</div>
+							<div class="form-group">
+								<input type="password" name="usu_contrasena" class="form-control input-lg" placeholder="Contraseña" required>
 							</div>
 							<p>Al registrarte aceptas las <a href="#!" style="display: inline-block;">condiciones de uso y la Política de Privacidad</a></p>
-							<button class="btn btn-danger btn-lg" type="submit">CREAR CUENTA</button>
+							<button class="btn btn-danger btn-lg" type="submit" name="btn_register">CREAR CUENTA</button>
 							<a href="login.html" class="text-center">Ya tengo una cuenta</a>
 						</form>
 					</div>

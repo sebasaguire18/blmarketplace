@@ -1,6 +1,9 @@
 <?php
     session_start();
-    $idUserSession = $_SESSION['idUserSessionBL'];
+    if(!$_SESSION['emailBS']){
+        error_reporting(0);
+        $idUserSession = $_SESSION['idUserSessionBL'];
+    }
     include 'conexion-bd.php';
     // include '../shared/link.php';
     include 'modelo.php';
@@ -123,6 +126,59 @@
                     header("location:../shared/alerts/errorInsert.php");
                 }
             }
+        }
+    }
+    
+    // Registro desde formulario público (newaccount)
+    if (isset($_POST['btn_register'])) {
+
+        $usu_nombre = isset($_POST['usu_nombre']) ? trim($_POST['usu_nombre']) : '';
+        $usu_correo = isset($_POST['usu_correo']) ? trim($_POST['usu_correo']) : '';
+        $usu_celular = isset($_POST['usu_celular']) ? trim($_POST['usu_celular']) : '';
+        $usu_contrasena = isset($_POST['usu_contrasena']) ? $_POST['usu_contrasena'] : '';
+        $usu_rol = '64645956cb3d2';
+
+        if ($usu_nombre == '' || $usu_correo == '' || $usu_celular == '' || $usu_contrasena == '') {
+            header("location:../includes/alerts.php?paramAlert=empty");
+            exit;
+        }
+
+        if (!filter_var($usu_correo, FILTER_VALIDATE_EMAIL)) {
+            header("location:../includes/alerts.php?paramAlert=empty");
+            exit;
+        }
+
+        if (!preg_match('/^\d+$/', $usu_celular)) {
+            header("location:../includes/alerts.php?paramAlert=empty");
+            exit;
+        }
+
+        // escapar entradas y verificar si el correo ya existe
+        $usu_nombre = mysqli_real_escape_string($conexion, $usu_nombre);
+        $usu_correo = mysqli_real_escape_string($conexion, $usu_correo);
+        $usu_celular = mysqli_real_escape_string($conexion, $usu_celular);
+
+        $validar = mysqli_query($conexion, "SELECT * FROM usuarios WHERE usu_correo = '$usu_correo'");
+        if (!$validar) {
+            header("location:../includes/alerts.php?paramAlert=error");
+            exit;
+        }
+        if (mysqli_num_rows($validar) > 0) {
+            header("location:../includes/alerts.php?paramAlert=userexist");
+            exit;
+        }
+
+        $usu_id = uniqid();
+        $usu_contrasena_h = md5($usu_contrasena);
+
+        $insertUser = mysqli_query($conexion, "INSERT INTO usuarios (usu_id,usu_nombre,usu_correo,usu_celular,usu_contrasena,usu_rol) VALUES ('$usu_id','$usu_nombre','$usu_correo','$usu_celular','$usu_contrasena_h','$usu_rol')");
+
+        if ($insertUser) {
+            header("location:../includes/alerts.php?paramAlert=success");
+            exit;
+        } else {
+            header("location:../includes/alerts.php?paramAlert=error");
+            exit;
         }
     }
 //-----------FIN AÑADIR USUARIOS-----------//
@@ -527,20 +583,27 @@
     if (isset($_POST['btn_actualizarperfil'])) {
 
         $nombre=$_POST['nombre'];
+        $celular=$_POST['celular'];
+        $correo=$_POST['correo'];
         $idUser=$_POST['idUser'];
+        $contrasenaAnterior=$_POST['contrasenaAnterior'];
+        $contrasenaNueva=$_POST['contrasenaNueva'];
+        $contrasenaNueva1=$_POST['contrasenaNueva1'];
 
-        if ($nombre == "" || $idUser == "") {
-
-            header("location:../shared/alerts/errorEmpty.php");
-
+        if ($nombre == "" || $celular == "" || $correo == "" || $idUser == "" || $contrasenaAnterior == "" || $contrasenaNueva == "" || $contrasenaNueva1 == "") {
+            
+            header("location:../includes/alerts.php?paramAlert=empty");
+            
         }else {
-
+            if ($contrasenaNueva <> $contrasenaNueva1) {
+                header("location:../includes/alerts.php?paramAlert=errorPassConfirm");
+            }
             $updateDatoUsuNombre = updateDatoUsuNombre($nombre,$idUser);
 
             if ($updateDatoUsuNombre === true) {
-                header ( "location:../shared/alerts/confirmUpdate.php" );
+                header("location:../includes/alerts.php?paramAlert=success");
             }else {
-                header ( "location:../shared/alerts/errorUpdate.php" );
+                header("location:../includes/alerts.php?paramAlert=error");
             }
             
         }

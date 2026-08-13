@@ -17,7 +17,8 @@
 <body>
 	
 	<?php include('../includes/navnew.php'); ?>
-<!-- ====== Contenido de pagina ======-->
+    
+    <!-- ====== Contenido de pagina ======-->
 	<section class="section">
 		<div class="container">
 			<div class="row">
@@ -38,20 +39,20 @@
 		<div class="container-fluid">
 			<div class="row d-flex justify-content-center align-items-center">
 				<div class="col-xs-11 col-sm-9 col-md-10">
-					<div class="full-width">
+					<!-- <div class="full-width">
 						<ol class="breadcrumb">
 						  <li><a href="#!">Vehículos</a></li>
 						  <li><a href="#!">Marca</a></li>
 						  <li class="active">Modelo</li>
 						</ol>
-					</div>
+					</div> -->
 					<div class="full-widht">
 						<i class="fa fa-th-large btn btn-default hidden-xs btn-change-post"></i>
 						<i class="fa fa-refresh btn btn-default"></i>
 						<i class="fa fa-angle-right btn btn-default"></i>
 					</div>
 					<div class="row container-fluid pt-3" id="resultadosBusqueda">
-                        <?php consultarProductos(1) ?>
+						<?php buscarProducto("", true) ?>
                     </div>
 					<div class="clearfix"></div>
 					<nav class="text-center">

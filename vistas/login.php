@@ -18,12 +18,12 @@
 						<i class="fa fa-user container-login-icon" aria-hidden="true"></i>
 						<h4 class="text-center text-light">INICIAR SESIÓN</h4>
 						<br>
-						<form action="">
+						<form action="../php/sesion.php" method="POST">
 							<div class="form-group">
-								<input type="email" class="form-control input-lg" placeholder="Email" required="">
+								<input type="email" name="usu_correo" class="form-control input-lg" placeholder="Email" required="">
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control input-lg" placeholder="Contraseña" required="">
+								<input type="password" name="usu_contrasena" class="form-control input-lg" placeholder="Contraseña" required="">
 							</div>
 							<a class="text-left text-light" href="#!">No recuerdo mi contraseña</a>
 							<div class="checkbox full-width" style="margin: 20px 0;">
@@ -31,8 +31,8 @@
 									<input type="checkbox"> No cerrar sesión
 								</label>
 							</div>
-							<button class="btn btn-danger btn-lg" type="submit">INICIAR SESIÓN</button>
-							<a href="newaccount.html" class="text-center">Si eres nuevo ¡Crea una cuenta!</a>
+							<button class="btn btn-danger btn-lg" type="submit" name="btn_iniciar">INICIAR SESIÓN</button>
+							<a href="newaccount.php" class="text-center">Si eres nuevo ¡Crea una cuenta!</a>
 						</form>
 					</div>
 				</div>
