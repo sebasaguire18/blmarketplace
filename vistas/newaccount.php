@@ -40,7 +40,7 @@
 							<div class="form-group">
 								<input type="password" name="usu_contrasena" class="form-control input-lg" placeholder="Contraseña" required>
 							</div>
-							<p>Al registrarte aceptas las <a href="#!" style="display: inline-block;">condiciones de uso y la Política de Privacidad</a></p>
+							<p>Al registrarte aceptas las <a href="./conditions.php" style="display: inline-block;">condiciones de uso y la Política de Privacidad</a></p>
 							<button class="btn btn-danger btn-lg" type="submit" name="btn_register">CREAR CUENTA</button>
 							<a href="login.html" class="text-center">Ya tengo una cuenta</a>
 						</form>
