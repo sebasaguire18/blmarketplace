@@ -44,8 +44,32 @@ $(document).on('ready', function(){
 	});
 	/*Input file*/
 	$(".custom-input-file input:file").change(function(){
-        $(".archivo").html($(this).val());
-    });
+		var filename = $(this).val().split('\\').pop();
+		var name = $(this).attr('name');
+		var group = $(this).closest('.form-group');
+		var target = null;
+
+		if (name === 'imagen') {
+			target = group.find('.archivo').first();
+		} else if (name === 'imagen2') {
+			target = group.find('.archivo2').first();
+		} else if (name === 'imagen3') {
+			target = group.find('.archivo3').first();
+		}
+
+		// fallback: the next <p> after the custom input wrapper
+		if (!target || !target.length) {
+			var custom = $(this).closest('.custom-input-file');
+			target = custom.nextAll('p').first();
+		}
+
+		// final fallback: global first .archivo
+		if (!target || !target.length) {
+			target = $(".archivo").first();
+		}
+
+		target.html(filename || 'Archivo...');
+	});
     /*Mostrar respuesta de mensajes*/
     $('.btn-res').on('click', function(){
     	var resMsj=$(this).next('.res-msj');

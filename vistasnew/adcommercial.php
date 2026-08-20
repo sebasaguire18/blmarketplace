@@ -57,22 +57,38 @@
 						    </div>
 						</div>
 						<br><br>
-						<h3 class="text-info">Foto</h3>
+						<h3 class="text-info">Fotos (1 obligatoria, hasta 3)</h3>
 						<p>¡los anuncios con fotos reciben 7 veces más contactos!</p>
 						<div class="form-group">
 						    <div class="custom-input-file">
 						    	<input type="file" size="1" class="input-file" name="imagen" required />
 							    <i class="fa fa-picture-o" aria-hidden="true"></i>
-							</div>
+						    </div>
 							<br>
 							<p  class="text-muted text-center archivo">Archivo...</p>
+						</div>
+						<div class="form-group">
+						    <div class="custom-input-file">
+						    	<input type="file" size="1" class="input-file" name="imagen2" />
+							    <i class="fa fa-picture-o" aria-hidden="true"></i>
+						    </div>
+							<br>
+							<p  class="text-muted text-center archivo2">Archivo 2...</p>
+						</div>
+						<div class="form-group">
+						    <div class="custom-input-file">
+						    	<input type="file" size="1" class="input-file" name="imagen3" />
+							    <i class="fa fa-picture-o" aria-hidden="true"></i>
+						    </div>
+							<br>
+							<p  class="text-muted text-center archivo3">Archivo 3...</p>
 						</div>
 						<br><br>
 						<h3 class="text-info">Datos para que te contacten</h3>
 						<div class="form-group d-flex align-items-center">
 						    <label class="col-sm-3 control-label">Ciudad donde está ubicado</label>
 						    <div class="col-sm-7">
-						    	<input type="tel" class="form-control" placeholder="Pereira Risaralda" name="ciudad" required>
+						    	<input type="text" class="form-control" placeholder="Pereira Risaralda" name="ciudad" required>
 						    </div>
 						</div>
 						<div class="form-group">

@@ -575,6 +575,30 @@ login.html & newaccount.html*/
     height: 100%;
 }
 
+/* Ensure consistent aspect ratio and cropping for card images */
+.post-img,
+.post>figure {
+    overflow: hidden;
+}
+
+.post-img img,
+.post>figure>img,
+.imgHTopW,
+.card-img-top img,
+.PimgTop img,
+.img-responsive {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+}
+
+/* Smaller widgets */
+.imgHTopW {
+    height: 150px;
+}
+
 .post-info {
     height: 82px;
     bottom: 0;

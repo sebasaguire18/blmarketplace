@@ -4,39 +4,28 @@
 
     // insertar nuevo producto
     function insertarProducto($titulo,$descripcion,$precio,$contacto,$categoria,$ciudad,$idUserSession,$destino,$destino2=false,$destino3=false){
-    
+
         include '../php/conexion-bd.php';
-	    date_default_timezone_set('America/Bogota');
+        date_default_timezone_set('America/Bogota');
 
         $post_id = uniqid();
 
+        if ($destino2 && $destino3) {
+            $sql = "INSERT INTO posts (post_id,post_titulo,post_descripcion,post_precio,post_contacto,post_categoria,post_ciudad,post_ruta_imagen,post_ruta_imagen2,post_ruta_imagen3,post_id_usuario)
+                    VALUES ('$post_id', '$titulo', '$descripcion', $precio, $contacto, '$categoria', '$ciudad', '$destino', '$destino2', '$destino3', '$idUserSession')";
+        } elseif ($destino2) {
+            $sql = "INSERT INTO posts (post_id,post_titulo,post_descripcion,post_precio,post_contacto,post_categoria,post_ciudad,post_ruta_imagen,post_ruta_imagen2,post_id_usuario)
+                    VALUES ('$post_id', '$titulo', '$descripcion', $precio, $contacto, '$categoria', '$ciudad', '$destino', '$destino2', '$idUserSession')";
+        } else {
+            $sql = "INSERT INTO posts (post_id,post_titulo,post_descripcion,post_precio,post_contacto,post_categoria,post_ciudad,post_ruta_imagen,post_id_usuario)
+                    VALUES ('$post_id', '$titulo', '$descripcion', $precio, $contacto, '$categoria', '$ciudad', '$destino', '$idUserSession')";
+        }
 
-        if ($destino2) {
-            if ($destino3){
-                $insertarProd=mysqli_query($conexion,"INSERT INTO posts (post_titulo,post_descripcion,post_precio,post_contacto,post_ruta_imagen,post_ruta_imagen2,post_ruta_imagen3,post_id_usuario) 
-                            VALUES('$nombreProducto','$detalles',$descuento,$categoria,'$ciudad',$costo,$precio,$iva,'$destino','$destino2','$destino3',$referenciaproveedor,'$idUserSession')");
-                if ($insertarProd) {
-                    return true;
-                }else {
-                    return false;
-                }
-            }else {
-                $insertarProd=mysqli_query($conexion,"INSERT INTO posts (post_titulo,post_descripcion,post_precio,post_contacto,post_ruta_imagen,post_ruta_imagen2,post_id_usuario)
-                            VALUES('$nombreProducto','$detalles',$descuento,$categoria,'$ciudad',$costo,$precio,$iva,'$destino','$destino2',$referenciaproveedor,'$fecha')");
-                if ($insertarProd) {
-                    return true;
-                }else {
-                    return false;
-                }
-            }
-        }else {
-            $insertarProd=mysqli_query($conexion,"INSERT INTO posts (post_id,post_titulo,post_descripcion,post_precio,post_contacto,post_categoria,post_ciudad,post_ruta_imagen,post_id_usuario)
-                            VALUES('$post_id','$titulo','$descripcion',$precio,$contacto,'$categoria','$ciudad','$destino','$idUserSession')");
-            if ($insertarProd) {
-                return true;
-            }else {
-                return false;
-            }
+        $insertarProd = mysqli_query($conexion, $sql);
+        if ($insertarProd) {
+            return true;
+        } else {
+            return false;
         }
     }
     // insertar nuevo usuario

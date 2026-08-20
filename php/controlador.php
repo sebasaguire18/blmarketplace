@@ -2,6 +2,7 @@
     session_start();
     if(!$_SESSION['emailBS']){
         error_reporting(0);
+    }else{
         $idUserSession = $_SESSION['idUserSessionBL'];
     }
     include 'conexion-bd.php';
@@ -21,60 +22,54 @@
         $ciudad = $_POST['ciudad'];
         $contacto = $_POST['contacto'];
         
-        $foto=$_FILES["imagen"]["name"];
-        $ruta=$_FILES["imagen"]["tmp_name"];
-        $destino="../assets/post/".uniqid()."-".$foto;
 
-        $foto2 = "";
-        $foto3 = "";
+        // Procesar imágenes (hasta 3). La primera es obligatoria.
+        $foto = isset($_FILES["imagen"]) ? $_FILES["imagen"]["name"] : '';
+        $ruta = isset($_FILES["imagen"]) ? $_FILES["imagen"]["tmp_name"] : '';
+        $destino = "../assets/post/" . uniqid() . "-" . basename($foto);
 
-        // $foto2=$_FILES["img2"]["name"];
-        // $ruta2=$_FILES["img2"]["tmp_name"];
-        // $destino2="../img/".uniqid()."-".$foto;
+        $foto2 = isset($_FILES["imagen2"]) ? $_FILES["imagen2"]["name"] : '';
+        $ruta2 = isset($_FILES["imagen2"]) ? $_FILES["imagen2"]["tmp_name"] : '';
+        $destino2 = $foto2 ? "../assets/post/" . uniqid() . "-" . basename($foto2) : "";
 
-        // $foto3=$_FILES["img3"]["name"];
-        // $ruta3=$_FILES["img3"]["tmp_name"];
-        // $destino3="../img/".uniqid()."-".$foto;
+        $foto3 = isset($_FILES["imagen3"]) ? $_FILES["imagen3"]["name"] : '';
+        $ruta3 = isset($_FILES["imagen3"]) ? $_FILES["imagen3"]["tmp_name"] : '';
+        $destino3 = $foto3 ? "../assets/post/" . uniqid() . "-" . basename($foto3) : "";
 
         if ($titulo == "" || $descripcion == "" || $precio == "" || $contacto == "" || $ciudad == "") {
             header("location:../includes/alerts.php?paramAlert=empty");
-        }else {
-            if ($foto2 <> "") {
-                if ($foto3 <> "") {
-                    $insertarProducto=insertarProducto($nombreProducto,$costo,$precio,$descuento,$iva,$detalles,$categoria,$ciudad,$referenciaproveedor,$destino,$destino2,$destino3);
-        
-                    if ($insertarProducto === true) {
-                        copy($ruta,$destino);
-                        copy($ruta2,$destino2);
-                        copy($ruta3,$destino3);
-                        header("location:../includes/alerts.php?paramAlert=success");
-                    }else {
-                        header("location:../includes/alerts.php?paramAlert=error"); 
-                    }
-                }else {
-                    $insertarProducto=insertarProducto($nombreProducto,$costo,$precio,$descuento,$iva,$detalles,$categoria,$ciudad,$referenciaproveedor,$destino,$destino2);
-        
-                    if ($insertarProducto === true) {
-                        copy($ruta,$destino);
-                        copy($ruta2,$destino2);
-                        header("location:../includes/alerts.php?paramAlert=success");
-                    }else {
-                        header("location:../includes/alerts.php?paramAlert=error"); 
-                    }
-                }
-            }else{
-                $insertarProducto=insertarProducto($titulo,$descripcion,$precio,$contacto,$categoria,$ciudad,$idUserSession,$destino);
-        
+        } else {
+            $has2 = ($foto2 <> "");
+            $has3 = ($foto3 <> "");
+
+            if ($has2 && $has3) {
+                $insertarProducto = insertarProducto($titulo, $descripcion, $precio, $contacto, $categoria, $ciudad, $idUserSession, $destino, $destino2, $destino3);
                 if ($insertarProducto === true) {
-                    copy($ruta,$destino);
-                    
+                    if ($ruta) copy($ruta, $destino);
+                    if ($ruta2) copy($ruta2, $destino2);
+                    if ($ruta3) copy($ruta3, $destino3);
                     header("location:../includes/alerts.php?paramAlert=success");
-                }else {
+                } else {
                     header("location:../includes/alerts.php?paramAlert=error");
-                    
+                }
+            } elseif ($has2) {
+                $insertarProducto = insertarProducto($titulo, $descripcion, $precio, $contacto, $categoria, $ciudad, $idUserSession, $destino, $destino2);
+                if ($insertarProducto === true) {
+                    if ($ruta) copy($ruta, $destino);
+                    if ($ruta2) copy($ruta2, $destino2);
+                    header("location:../includes/alerts.php?paramAlert=success");
+                } else {
+                    header("location:../includes/alerts.php?paramAlert=error");
+                }
+            } else {
+                $insertarProducto = insertarProducto($titulo, $descripcion, $precio, $contacto, $categoria, $ciudad, $idUserSession, $destino);
+                if ($insertarProducto === true) {
+                    if ($ruta) copy($ruta, $destino);
+                    header("location:../includes/alerts.php?paramAlert=success");
+                } else {
+                    header("location:../includes/alerts.php?paramAlert=error");
                 }
             }
-            
         }
         
     }
