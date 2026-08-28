@@ -139,7 +139,16 @@
             </div>
         </div>
     </div>
-
+    <div class="full-width">
+        <ul class="list-unstyled fullwidth text-center footer-social">
+            <li class="bg-gray text-white mt-5 py-3">
+                <h2>Contactanos:</h2>
+                <a class="text-white" href="https://wa.me/573233858522?text=Hola,%20me%20gustaría%20obtener%20ayuda%20por%20favor..." target="_blank">
+                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 </div>

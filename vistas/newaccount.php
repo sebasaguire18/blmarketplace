@@ -19,7 +19,7 @@
 						Gestiona tus anuncios, tus favoritos, chatea y vende cuando y desde dónde quieras
 					</p>
 					<figure class="full-width">
-						<img src="assets/img/Devices.png" alt="" class="img-responsive">
+						<img src="../assets/img/Devices.png" alt="" class="img-responsive">
 					</figure>
 				</div>
 				<div class="col-xs-12 col-sm-6">
@@ -42,7 +42,7 @@
 							</div>
 							<p>Al registrarte aceptas las <a href="./conditions.php" style="display: inline-block;">condiciones de uso y la Política de Privacidad</a></p>
 							<button class="btn btn-danger btn-lg" type="submit" name="btn_register">CREAR CUENTA</button>
-							<a href="login.html" class="text-center">Ya tengo una cuenta</a>
+							<a href="login.php" class="text-center">Ya tengo una cuenta</a>
 						</form>
 					</div>
 				</div>

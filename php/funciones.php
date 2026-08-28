@@ -679,19 +679,21 @@
                 $classFav = 'fa-heart-o';
             }
         ?>
-            <div class="col-11 col-sm-6 col-md-4 col-lg-3 post">
-                <figure class="full-width post-img">
-                    <!-- Tamaño de la imagen 248x186 pixeles-->
-                    <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
-                </figure>
-                <div class="full-width post-info">
-                    <a href="post.php?id_post=<?php echo $post['post_id']; ?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
-                    <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
-                    <span class="post-info-zone"><?php echo $categoria; ?></span>
-                    <span class="post-info-date"><?php echo $fecha; ?></span>
-                    <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
+            <a href="post.php?id_post=<?php echo $post['post_id']; ?>">
+                <div class="col-11 col-sm-6 col-md-4 col-lg-3 post">
+                    <figure class="full-width post-img">
+                        <!-- Tamaño de la imagen 248x186 pixeles-->
+                        <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
+                    </figure>
+                    <div class="full-width post-info">
+                        <a href="post.php?id_post=<?php echo $post['post_id']; ?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
+                        <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
+                        <span class="post-info-zone"><?php echo $categoria; ?></span>
+                        <span class="post-info-date"><?php echo $fecha; ?></span>
+                        <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
+                    </div>
                 </div>
-            </div>
+            </a>
         <?php
         }
         
@@ -733,24 +735,26 @@
             }
         ?>
             <?php $isSold = ($post['post_estado'] == 2); ?>
-            <div class="col-11 col-sm-6 col-md-4 col-lg-3 post" <?php if($isSold){ echo 'style="background: rgba(255,0,0,0.06);"'; } ?> >
-                <figure class="full-width post-img">
-                    <!-- Tamaño de la imagen 248x186 pixeles-->
-                    <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
-                </figure>
-                <div class="full-width post-info">
-                    <?php if($isSold){ ?>
-                        <div style="position:absolute;right:10px;top:10px;background:rgba(255,0,0,0.12);color:#900;padding:4px 8px;border-radius:3px;font-weight:700;">VENDIDO</div>
-                    <?php } ?>
-                    <a href="post.php?id_post=<?php echo $post['post_id'];?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
-                    <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
-                    <span class="post-info-zone"><?php echo $categoria; ?></span>
-                    <span class="post-info-date"><?php echo $fecha ?></span>
-                    <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
-                    <?php if ($isSold) { $vendClass='fa-check'; $vendTitle='Marcar como disponible'; } else { $vendClass='fa-tag'; $vendTitle='Marcar como vendido'; } ?>
-                    <i class="fa <?php echo $vendClass; ?> post-info-like btn-vendido" data-post="<?php echo $post['post_id']; ?>" style="margin-left:8px;cursor:pointer;" title="<?php echo $vendTitle; ?>" onclick="toggleVendido(this)"></i>
+            <a href="post.php?id_post=<?php echo $post['post_id']; ?>">
+                <div class="col-11 col-sm-6 col-md-4 col-lg-3 post" <?php if($isSold){ echo 'style="background: rgba(255,0,0,0.06);"'; } ?> >
+                    <figure class="full-width post-img">
+                        <!-- Tamaño de la imagen 248x186 pixeles-->
+                        <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
+                    </figure>
+                    <div class="full-width post-info">
+                        <?php if($isSold){ ?>
+                            <div style="position:absolute;right:10px;top:10px;background:rgba(255,0,0,0.12);color:#900;padding:4px 8px;border-radius:3px;font-weight:700;">VENDIDO</div>
+                        <?php } ?>
+                        <a href="post.php?id_post=<?php echo $post['post_id'];?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
+                        <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
+                        <span class="post-info-zone"><?php echo $categoria; ?></span>
+                        <span class="post-info-date"><?php echo $fecha ?></span>
+                        <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
+                        <?php if ($isSold) { $vendClass='fa-check'; $vendTitle='Marcar como disponible'; } else { $vendClass='fa-tag'; $vendTitle='Marcar como vendido'; } ?>
+                        <i class="fa <?php echo $vendClass; ?> post-info-like btn-vendido" data-post="<?php echo $post['post_id']; ?>" style="margin-left:8px;cursor:pointer;" title="<?php echo $vendTitle; ?>" onclick="toggleVendido(this)"></i>
+                    </div>
                 </div>
-            </div>
+            </a>
         <?php
         }
         
@@ -783,19 +787,21 @@
                 $classFav = 'fa-heart-o';
             }
         ?>
-            <div class="col-11 col-sm-6 col-md-4 col-lg-3 post">
-                <figure class="full-width post-img">
-                    <!-- Tamaño de la imagen 248x186 pixeles-->
-                    <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
-                </figure>
-                <div class="full-width post-info">
-                    <a href="post.php?id_post=<?php echo $post['post_id'];?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
-                    <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
-                    <span class="post-info-zone"><?php echo $categoria; ?></span>
-                    <span class="post-info-date"><?php echo $fecha ?></span>
-                    <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
+            <a href="post.php?id_post=<?php echo $post['post_id']; ?>">
+                <div class="col-11 col-sm-6 col-md-4 col-lg-3 post">
+                    <figure class="full-width post-img">
+                        <!-- Tamaño de la imagen 248x186 pixeles-->
+                        <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
+                    </figure>
+                    <div class="full-width post-info">
+                        <a href="post.php?id_post=<?php echo $post['post_id'];?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
+                        <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
+                        <span class="post-info-zone"><?php echo $categoria; ?></span>
+                        <span class="post-info-date"><?php echo $fecha ?></span>
+                        <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
+                    </div>
                 </div>
-            </div>
+            </a>
         <?php
         }
         
@@ -2126,22 +2132,24 @@
                 }
             ?>
                 <?php $isSold = ($post['post_estado'] == 2); ?>
-                <div class="col-11 col-sm-6 col-md-4 col-lg-3 post" <?php if($isSold){ echo 'style="background: rgba(255,0,0,0.06);"'; } ?> >
-                    <figure class="full-width post-img">
-                        <!-- Tamaño de la imagen 248x186 pixeles-->
-                        <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
-                    </figure>
-                    <div class="full-width post-info">
-                        <?php if($isSold){ ?>
-                            <div style="position:absolute;right:10px;top:10px;background:rgba(255,0,0,0.12);color:#900;padding:4px 8px;border-radius:3px;font-weight:700;">VENDIDO</div>
-                        <?php } ?>
-                        <a href="post.php?id_post=<?php echo $post['post_id']; ?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
-                        <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
-                        <span class="post-info-zone"><?php echo $categoria; ?></span>
-                        <span class="post-info-date"><?php echo $fecha; ?></span>
-                        <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
+                <a href="post.php?id_post=<?php echo $post['post_id']; ?>">
+                    <div class="col-11 col-sm-6 col-md-4 col-lg-3 post" <?php if($isSold){ echo 'style="background: rgba(255,0,0,0.06);"'; } ?> >
+                        <figure class="full-width post-img">
+                            <!-- Tamaño de la imagen 248x186 pixeles-->
+                            <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
+                        </figure>
+                        <div class="full-width post-info">
+                            <?php if($isSold){ ?>
+                                <div style="position:absolute;right:10px;top:10px;background:rgba(255,0,0,0.12);color:#900;padding:4px 8px;border-radius:3px;font-weight:700;">VENDIDO</div>
+                            <?php } ?>
+                            <a href="post.php?id_post=<?php echo $post['post_id']; ?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
+                            <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
+                            <span class="post-info-zone"><?php echo $categoria; ?></span>
+                            <span class="post-info-date"><?php echo $fecha; ?></span>
+                            <i class="fa <?php echo $classFav; ?> post-info-like btn-favorito" data-producto="<?php echo $post['post_id']; ?>" onclick="toggleFavorito(this)"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             <?php
             }
         }else{
@@ -2181,22 +2189,24 @@
 
             ?>
                 <?php $isSold = ($post['post_estado'] == 2); ?>
-                <div class="col-11 col-sm-6 col-md-4 col-lg-3 post" <?php if($isSold){ echo 'style="background: rgba(255,0,0,0.06);"'; } ?> >
-                    <figure class="full-width post-img">
-                        <!-- Tamaño de la imagen 248x186 pixeles-->
-                        <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
-                    </figure>
-                    <div class="full-width post-info">
-                        <?php if($isSold){ ?>
-                            <div style="position:absolute;right:10px;top:10px;background:rgba(255,0,0,0.12);color:#900;padding:4px 8px;border-radius:3px;font-weight:700;">VENDIDO</div>
-                        <?php } ?>
-                        <a href="post.php?id_post=<?php echo $post['post_id']; ?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
-                        <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
-                        <span class="post-info-zone"><?php echo $categoria; ?></span>
-                        <span class="post-info-date"><?php echo $fecha; ?></span>
-                        <i class="fa fa-heart-o post-info-like btn-favorito" onclick=""></i>
+                <a href="post.php?id_post=<?php echo $post['post_id']; ?>">
+                    <div class="col-11 col-sm-6 col-md-4 col-lg-3 post" <?php if($isSold){ echo 'style="background: rgba(255,0,0,0.06);"'; } ?> >
+                        <figure class="full-width post-img">
+                            <!-- Tamaño de la imagen 248x186 pixeles-->
+                            <img src="<?php echo $post['post_ruta_imagen'];?>" alt="<?php echo $tituloPost;?>" class="img-responsive">
+                        </figure>
+                        <div class="full-width post-info">
+                            <?php if($isSold){ ?>
+                                <div style="position:absolute;right:10px;top:10px;background:rgba(255,0,0,0.12);color:#900;padding:4px 8px;border-radius:3px;font-weight:700;">VENDIDO</div>
+                            <?php } ?>
+                            <a href="post.php?id_post=<?php echo $post['post_id']; ?>" class="full-width post-info-title"><?php echo $tituloPost;?></a>
+                            <p class="full-width post-info-price"><?php echo '$ '.$precioCF; ?></p>
+                            <span class="post-info-zone"><?php echo $categoria; ?></span>
+                            <span class="post-info-date"><?php echo $fecha; ?></span>
+                            <i class="fa fa-heart-o post-info-like btn-favorito" onclick=""></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             <?php
             }
         }

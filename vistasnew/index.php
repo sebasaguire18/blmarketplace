@@ -61,7 +61,7 @@
 					<div class="row container-fluid pt-3" id="resultadosBusqueda">
 						<?php buscarProducto("", true) ?>
                     </div>
-					<div class="clearfix"></div>
+					<!-- <div class="clearfix"></div>
 					<nav class="text-center">
 						<ul class="pagination">
 							<li>
@@ -80,7 +80,7 @@
 							  	</a>
 							</li>
 						</ul>
-					</nav>
+					</nav> -->
 				</div>
 			</div>
 		</div>

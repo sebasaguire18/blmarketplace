@@ -1,17 +1,15 @@
 <!-- ====== Barra de navegacion ======-->
 <div class="full-width NavBar">
+    <a href="./index.php" class="focus-none">
     <div class="full-width text-semi-bold NavBar-logo">
         <img src="../assets/img/logo.png" alt="Logotipo de la web">
     </div>
+    </a>
     <nav class=" full-width NavBar-Nav">
         <div class="full-width NavBar-Nav-bg hidden-md hidden-lg show-menu-mobile"></div>
         <ul class="list-unstyled full-width menu-mobile-c">
             <div class="full-width hidden-md hidden-lg header-menu-mobile">
-                <i class="fa fa-times header-menu-mobile-close-btn show-menu-mobile" aria-hidden="true"></i>
-                <i class="fa fa-user NavBar-Nav-icon header-menu-mobile-icon" aria-hidden="true"></i>
-                <a href="login.php" class="btn btn-info header-menu-mobile-btn">INICIAR SESIÓN</a>
-                <div class="divider"></div>
-                <a href="newaccount.php" class="btn btn-primary header-menu-mobile-btn">CRÉATE UNA CUENTA</a>
+                <a href="../php/cerrarsesion.php" class="btn btn-danger header-menu-mobile-btn">CERRAR SESIÓN</a>
             </div>
             <li>
                 <a href="index.php">
@@ -47,31 +45,16 @@
 <section class=" full-width PopUpLogin">
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="LoginTab1">
-            
+                <!-- <a href="login.php" class="header-menu-mobile-btn">mis anuncios</a>
+                <div class="divider"></div>
+                <a href="newaccount.php" class="header-menu-mobile-btn">ayuda</a>
+                <div class="divider"></div> -->
                 <a href="../php/cerrarsesion.php" class="btn btn-danger btn-lg">CERRAR SESIÓN</a>
-            
-        </div>
-        <div role="tabpanel" class="tab-pane fade" id="LoginTab2">
-            <form action="login.php" style="padding-top: 15px;">
-                <div class="form-group">
-                    <input type="email" class="form-control input-lg" name="usu_correo" placeholder="Email" autocomplete="none" required="">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control input-lg" name="usu_constrasena" placeholder="Contraseña" autocomplete="none" required="">
-                </div>
-                <a class="text-left text-light" href="#!">No recuerdo mi contraseña</a>
-                <div class="checkbox full-width">
-                    <label>
-                        <input type="checkbox"> No cerrar sesión
-                    </label>
-                </div>
-                <button class="btn btn-danger btn-lg" type="submit" name="btn_iniciar">INICIAR SESIÓN</button>
-            </form>
         </div>
     </div>
 </section>
 <!-- ====== Buscador movil ======-->
-<section class="full-width hidden-md hidden-lg Search-mobile">
+<!-- <section class="full-width hidden-md hidden-lg Search-mobile">
     <form action="commercial.php" style="padding-top: 15px;">
         <div class="form-group">
             <input type="text" class="form-control input-lg" placeholder="Estoy buscado..." required="">
@@ -81,4 +64,4 @@
         </div>
         <button class="btn btn-danger btn-lg" type="submit">BUSCAR</button>
     </form>
-</section>
+</section> -->

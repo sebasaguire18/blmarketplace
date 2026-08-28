@@ -14,11 +14,11 @@
                             <i class="fa fa-whatsapp" aria-hidden="true"></i>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#!">
                             <i class="fa fa-youtube" aria-hidden="true"></i>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="https://www.instagram.com/bltiendasoficial/" target="_blank">
                             <i class="fa fa-instagram" aria-hidden="true"></i>

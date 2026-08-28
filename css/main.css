@@ -39,6 +39,14 @@ a:active {
     font-weight: 700;
 }
 
+.text-white{
+    color: #fff !important;
+}
+
+.bg-gray {
+    background-color: #3C3C3C!important;
+}
+
 .full-width {
     width: 100%;
     margin: 0;

@@ -1,14 +1,11 @@
 <?php
     session_start();
-    if($_SESSION['emailBS']){
-        $nombre=$_SESSION['emailBS'];
-        $idUserSession = $_SESSION['idUserSessionBL'];
-        include '../php/funciones.php';
+    include '../php/funciones.php';
 
-        $idPost = $_GET['id_post'];
+    $idPost = isset($_GET['id_post']) ? (int) $_GET['id_post'] : 0;
 
-        // verificar existencia 
-        $verificarExistenciaPost = consultarExistenciaProducto($idPost);
+    // verificar existencia
+    $verificarExistenciaPost = consultarExistenciaProducto($idPost);
 
         // crear url para el portapapeles
         $urlProducto = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
@@ -18,11 +15,39 @@
         // crear url para el boton de enviar mensaje
         $mensajeProductoWh = "¿Este anuncio está disponible?: https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-        // consultar detalles del producto, esta variable regresa un arreglo
-        $detalleProducto = consultarDetalleProducto($idPost);
+    // consultar detalles del producto, esta variable regresa un arreglo
+    $detalleProducto = consultarDetalleProducto($idPost);
 
-        // generar una nueva vista del producto
+    $tituloPost = $detalleProducto ? trim($detalleProducto['post_titulo']) : 'Anuncio no disponible';
+    $descripcionPost = $detalleProducto ? trim(strip_tags($detalleProducto['post_descripcion'])) : 'Este anuncio no está disponible.';
+    $descripcionSeo = function ($texto, $limite = 160) {
+        $texto = preg_replace('/\s+/', ' ', $texto);
+        return trim(mb_substr($texto, 0, $limite));
+    };
+    $urlCanonica = 'https://' . $_SERVER['HTTP_HOST'] . strtok($_SERVER['REQUEST_URI'], '?') . '?id_post=' . $idPost;
+    $imagenSeo = $detalleProducto ? $detalleProducto['post_ruta_imagen'] : '';
+    $precioSeo = $detalleProducto ? (float) $detalleProducto['post_precio'] : 0;
+
+    $datosProducto = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Product',
+        'name' => $tituloPost,
+        'description' => $descripcionSeo($descripcionPost),
+        'url' => $urlCanonica,
+        'image' => $imagenSeo ? ['https://' . $_SERVER['HTTP_HOST'] . '/' . ltrim($imagenSeo, '/')] : [],
+        'offers' => [
+            '@type' => 'Offer',
+            'priceCurrency' => 'COP',
+            'price' => $precioSeo,
+            'availability' => 'https://schema.org/InStock',
+            'url' => $urlCanonica
+        ]
+    ];
+
+    // generar una nueva vista del producto
+    if ($verificarExistenciaPost === 'true') {
         generarVista($idPost);
+    }
         
         $nombreImg = $detalleProducto['post_ruta_imagen'];
 
@@ -41,7 +66,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head> 
-	<title>Anuncios</title>
+    <title><?php echo htmlspecialchars($tituloPost, ENT_QUOTES, 'UTF-8'); ?> | BL TIENDAS</title>
+    <meta name="description" content="<?php echo htmlspecialchars($descripcionSeo($descripcionPost), ENT_QUOTES, 'UTF-8'); ?>">
+    <link rel="canonical" href="<?php echo htmlspecialchars($urlCanonica, ENT_QUOTES, 'UTF-8'); ?>">
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="<?php echo htmlspecialchars($tituloPost, ENT_QUOTES, 'UTF-8'); ?>">
+    <meta property="og:description" content="<?php echo htmlspecialchars($descripcionSeo($descripcionPost), ENT_QUOTES, 'UTF-8'); ?>">
+    <meta property="og:url" content="<?php echo htmlspecialchars($urlCanonica, ENT_QUOTES, 'UTF-8'); ?>">
+    <?php if ($imagenSeo) { ?><meta property="og:image" content="<?php echo htmlspecialchars('https://' . $_SERVER['HTTP_HOST'] . '/' . ltrim($imagenSeo, '/'), ENT_QUOTES, 'UTF-8'); ?>"><?php } ?>
+    <script type="application/ld+json"><?php echo json_encode($datosProducto, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?></script>
 	
 	<?php include('../includes/link.php'); ?>
 </head>
@@ -70,9 +103,8 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-8">
                         <ol class="breadcrumb">
-                            <li><a href="#">Vehículos</a></li>
-                            <li><a href="#">Marca</a></li>
-                            <li class="active">Modelo</li>
+                            <li><a href="index.php">Inicio</a></li>
+                            <li><a href="#"><?php echo $detalleProducto['post_titulo']; ?></a></li>
                         </ol>
                         <div id="slider-commercial" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
@@ -100,9 +132,12 @@
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
-                        <p class="lead text-justify p-4 pt-5 p-md-2">
-                            <?php echo $detalleProducto['post_descripcion']; ?>    
-                        </p>
+                        <div class="descripcion">
+                            <h3 class="">Descripción del anuncio:</h3>
+                            <p class="lead text-justify p-4 pt-5 p-md-2">
+                                <?php echo $detalleProducto['post_descripcion']; ?>    
+                            </p>
+                        </div>
                         <div class="full-width div-table">
                             <!-- <div class="full-width div-table-row">
                                 <div class="div-table-cell div-table-cell-xs div-table-cell-c">
@@ -128,7 +163,7 @@
                         <div class="full-width div-table">
                             <div class="full-width div-table-row">
                                 <div class="div-table-cell div-table-cell-xs mr-0 m-md-0 p-md-0 p-lg-3">
-                                    <a href="listado.php" class="btn btn-default btn-block p-2 px-lg-3 py-lg-2 p-md-1"><i class="fa fa-angle-left" aria-hidden="true"></i> Ir al listado</a>
+                                    <a href="index.php" class="btn btn-default btn-block p-2 px-lg-3 py-lg-2 p-md-1"><i class="fa fa-angle-left" aria-hidden="true"></i> Ir al listado</a>
                                 </div>
                                 <div class="div-table-cell div-table-cell-xs mr-0 m-md-0 p-md-0 p-lg-3">
                                     <a href="#!" class="btn btn-default btn-block p-2 px-lg-3 py-lg-2 p-md-1">Siguiente anuncio <i class="fa fa-angle-right" aria-hidden="true"></i></a>
@@ -185,8 +220,4 @@
 
 </body>
 </html>
-<?php
-	}else{
-        header("location: ../vistas/index.php");
-    }
 ?>
